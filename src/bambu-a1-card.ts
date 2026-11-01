@@ -316,7 +316,9 @@ export class BambuA1Card extends LitElement {
     const coverUrl = typeof picture === "string" ? (this.hass?.hassUrl ? this.hass.hassUrl(picture) : picture) : undefined;
     return html`
       <div class="job ${st}" @click=${() => this._moreInfo(cover ? "cover" : "task")}>
-        ${coverUrl ? html`<img src=${coverUrl} alt="" />` : nothing}
+        ${coverUrl
+          ? html`<img src=${coverUrl} alt="" @error=${(ev: Event) => ((ev.target as HTMLElement).style.display = "none")} />`
+          : nothing}
         <div class="job-info">
           ${task ? html`<div class="job-name" title=${task}>${task}</div>` : nothing}
           <div class="bar"><div style="width:${progress}%"></div></div>

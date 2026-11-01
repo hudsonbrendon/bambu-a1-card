@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1
+
+- Hide the job thumbnail when the cover image fails to load.
+
 ## 0.1.0
 
 - First release: the A1 and its AMS lite redrawn after the product photos;
