@@ -1,0 +1,73 @@
+{
+  "common": {
+    "name": "Bambu Lab A1 Card",
+    "description": "Animated card for the Bambu Lab A1 and its AMS lite (bambulab_local or bambu_lab integration).",
+    "invalid_config": "Invalid configuration",
+    "more_info": "More info"
+  },
+  "status": {
+    "printing": "Printing",
+    "preparing": "Preparing",
+    "paused": "Paused",
+    "error": "Print error",
+    "failed": "Print failed",
+    "finished": "Finished",
+    "idle": "Idle",
+    "offline": "Offline",
+    "unavailable": "Unavailable"
+  },
+  "job": {
+    "layer": "Layer {layer}/{total}",
+    "left": "{time} left",
+    "eta": "ends {time}"
+  },
+  "stat": {
+    "nozzle": "Nozzle",
+    "bed": "Bed",
+    "target": "{name} · target {value}°",
+    "speed": "Speed",
+    "total_hours": "Total use"
+  },
+  "speed": {
+    "silent": "Silent",
+    "standard": "Standard",
+    "sport": "Sport",
+    "ludicrous": "Ludicrous"
+  },
+  "ams": {
+    "empty": "Empty",
+    "external": "External",
+    "slot": "Slot {n}"
+  },
+  "tip": {
+    "wifi": "Wi-Fi signal",
+    "nozzle": "Nozzle diameter",
+    "fan": "Part fan",
+    "hms": "HMS errors",
+    "update": "Firmware update available"
+  },
+  "action": {
+    "pause": "Pause",
+    "resume": "Resume",
+    "stop": "Stop",
+    "confirm_stop": "Stop the current print? It can't be resumed.",
+    "clear_error": "Clear error",
+    "light": "Light",
+    "cooldown": "Cool down",
+    "home": "Home axes",
+    "bed_level": "Bed leveling",
+    "confirm_bed_level": "Run the bed leveling calibration now?",
+    "lower": "Lower {name} target",
+    "raise": "Raise {name} target"
+  },
+  "editor": {
+    "device": "Printer device",
+    "name": "Name",
+    "show_name": "Show name",
+    "show_status": "Show status",
+    "show_toolbar": "Show toolbar",
+    "show_ams": "Show AMS",
+    "compact_view": "Compact view",
+    "temperature_step": "Temperature step (°C)"
+  }
+}

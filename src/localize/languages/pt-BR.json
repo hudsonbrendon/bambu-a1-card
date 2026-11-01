@@ -1,0 +1,73 @@
+{
+  "common": {
+    "name": "Card da Bambu Lab A1",
+    "description": "Card animado da Bambu Lab A1 e do AMS lite (integração bambulab_local ou bambu_lab).",
+    "invalid_config": "Configuração inválida",
+    "more_info": "Mais informações"
+  },
+  "status": {
+    "printing": "Imprimindo",
+    "preparing": "Preparando",
+    "paused": "Pausada",
+    "error": "Erro de impressão",
+    "failed": "Impressão falhou",
+    "finished": "Concluída",
+    "idle": "Ociosa",
+    "offline": "Desligada",
+    "unavailable": "Indisponível"
+  },
+  "job": {
+    "layer": "Camada {layer}/{total}",
+    "left": "faltam {time}",
+    "eta": "termina {time}"
+  },
+  "stat": {
+    "nozzle": "Bico",
+    "bed": "Mesa",
+    "target": "{name} · alvo {value}°",
+    "speed": "Velocidade",
+    "total_hours": "Uso total"
+  },
+  "speed": {
+    "silent": "Silencioso",
+    "standard": "Padrão",
+    "sport": "Esportivo",
+    "ludicrous": "Insano"
+  },
+  "ams": {
+    "empty": "Vazio",
+    "external": "Externo",
+    "slot": "Bandeja {n}"
+  },
+  "tip": {
+    "wifi": "Sinal Wi-Fi",
+    "nozzle": "Diâmetro do bico",
+    "fan": "Ventoinha da peça",
+    "hms": "Erros HMS",
+    "update": "Atualização de firmware disponível"
+  },
+  "action": {
+    "pause": "Pausar",
+    "resume": "Retomar",
+    "stop": "Parar",
+    "confirm_stop": "Parar a impressão atual? Não dá para retomar depois.",
+    "clear_error": "Limpar erro",
+    "light": "Luz",
+    "cooldown": "Resfriar",
+    "home": "Referenciar eixos",
+    "bed_level": "Nivelar mesa",
+    "confirm_bed_level": "Rodar a calibração de nivelamento da mesa agora?",
+    "lower": "Baixar alvo do {name}",
+    "raise": "Subir alvo do {name}"
+  },
+  "editor": {
+    "device": "Impressora",
+    "name": "Nome",
+    "show_name": "Mostrar nome",
+    "show_status": "Mostrar status",
+    "show_toolbar": "Mostrar barra de ações",
+    "show_ams": "Mostrar AMS",
+    "compact_view": "Modo compacto",
+    "temperature_step": "Passo de temperatura (°C)"
+  }
+}
