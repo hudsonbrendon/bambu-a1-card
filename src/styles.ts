@@ -159,12 +159,12 @@ export const cardStyles = css`
     --mdc-icon-size: 13px;
   }
   .pill.nozzle {
-    top: 41%;
+    top: 30%;
     left: 50%;
     transform: translate(-50%, 0);
   }
   .pill.bed {
-    bottom: 11%;
+    bottom: 13%;
     left: 50%;
     transform: translate(-50%, 0);
   }

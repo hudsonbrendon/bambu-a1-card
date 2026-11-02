@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1
+
+- A1 render cropped to the printer with the white background removed; pills repositioned.
+
 ## 0.2.0
 
 - The illustration is gone: the card now shows the official Bambu Lab product
