@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1
+
+- Print stages are translated (pt-BR / en) instead of showing the raw key.
+
 ## 0.3.0
 
 - The spools in the AMS lite photo are tinted with the colour of the filament

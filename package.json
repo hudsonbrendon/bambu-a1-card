@@ -1,6 +1,6 @@
 {
   "name": "bambu-a1-card",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Animated Lovelace card for the Bambu Lab A1 and AMS lite (bambulab_local or bambu_lab integration)",
   "type": "module",
   "main": "dist/bambu-a1-card.js",

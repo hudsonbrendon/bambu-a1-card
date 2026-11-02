@@ -333,11 +333,22 @@ export class BambuA1Card extends LitElement {
     return html`<div class="name">${name}</div>`;
   }
 
+  /** Translated stage name; falls back to the integration's own translation, then to a humanised key. */
+  private _stageLabel(stage: HassState): string {
+    const key = stage.state;
+    const own = this._t(`stage.${key}`);
+    if (own !== `stage.${key}`) return own;
+    const formatted = this._formatState(stage);
+    if (formatted && !/_/.test(formatted)) return formatted;
+    const text = key.replace(/_+/g, " ").trim();
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  }
+
   private _renderStatus(st: PrinterState): Template {
     if (!this._config.show_status) return nothing;
     const stage = this._state("stage");
     const detailed = (st === "printing" || st === "preparing") && stage && !PLAIN_STAGES.has(stage.state);
-    const label = detailed ? this._formatState(stage!) : this._t(`status.${st}`);
+    const label = detailed ? this._stageLabel(stage!) : this._t(`status.${st}`);
     return html`
       <div class="status ${st}">
         ${BUSY_STATES.has(st) ? html`<ha-spinner class="status-spinner" size="tiny"></ha-spinner>` : nothing}
