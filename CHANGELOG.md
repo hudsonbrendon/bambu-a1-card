@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.0
+
+- The spools in the AMS lite photo are tinted with the colour of the filament
+  loaded in each slot (empty slots fade out); the windings were neutralised in
+  the base render and masked per slot.
+- PTFE tubes drawn from the four AMS feeders to the hub on the printer.
+- Task names are humanised: underscores become spaces, file extensions are
+  dropped and the printer's own calibration job reads "Automatic calibration".
+
 ## 0.2.1
 
 - A1 render cropped to the printer with the white background removed; pills repositioned.

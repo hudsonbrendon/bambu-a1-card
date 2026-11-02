@@ -1,6 +1,6 @@
-import { LitElement, html, nothing, type PropertyValues, type TemplateResult } from "lit";
+import { LitElement, html, nothing, svg, type PropertyValues, type TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { A1_IMAGE, AMS_LITE_IMAGE } from "./assets/images";
+import { A1_IMAGE, AMS_LITE_IMAGE, SPOOL_MASKS } from "./assets/images";
 import { BUSY_STATES, CARD_NAME, CARD_VERSION, JOB_STATES, PLATFORMS, TRAY_KEYS, type EntityKey, type PrinterState } from "./const";
 import { computeState, parseTray, resolveEntities, toMinutes } from "./helpers/resolve";
 import { localize, resolveLanguage } from "./localize";
@@ -261,9 +261,11 @@ export class BambuA1Card extends LitElement {
           : nothing}
         ${light ? html`<span class="pill light" title=${this._t("action.light")}><ha-icon icon="mdi:lightbulb-on"></ha-icon></span>` : nothing}
       </div>
+      ${showAms ? this._renderTubes() : nothing}
       ${showAms
         ? html`<div class="photo spools">
             <img src=${AMS_LITE_IMAGE} alt="AMS lite" />
+            ${trays.slice(0, 4).map((tray, i) => this._renderSpoolTint(tray, i))}
             ${active
               ? html`<span class="pill active-slot" title=${active.name ?? ""}>
                   <span class="dot" style="background:${active.color ?? "#999"}"></span>${active.type ?? active.name ?? ""}
@@ -272,6 +274,33 @@ export class BambuA1Card extends LitElement {
           </div>`
         : nothing}
     </div>`;
+  }
+
+  /** Tint one spool winding of the AMS photo with the filament loaded in that slot. */
+  private _renderSpoolTint(tray: Tray, index: number): Template {
+    const mask = SPOOL_MASKS[index];
+    if (!mask) return nothing;
+    const style = `-webkit-mask-image:url(${mask});mask-image:url(${mask});`;
+    if (tray.empty || !tray.color) return html`<span class="spool-tint empty" style=${style}></span>`;
+    return html`<span class="spool-tint" style="${style}background:${tray.color}"></span>`;
+  }
+
+  /** PTFE tubes from the four AMS feeders to the hub on the printer's right side. */
+  private _renderTubes(): Template {
+    // Coordinates in a 1000x1000 box stretched over the hero (printer 58% wide, AMS 42%).
+    const hub = { x: 468, y: 205 };
+    const feeders = [
+      { x: 731, y: 402 },
+      { x: 766, y: 392 },
+      { x: 822, y: 392 },
+      { x: 856, y: 402 },
+    ];
+    return html`<svg class="tubes" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
+      ${feeders.map(
+        (f, i) =>
+          svg`<path d="M ${f.x} ${f.y} C ${f.x} ${250 - i * 14}, ${hub.x + 120 + i * 16} ${90 + i * 12}, ${hub.x + 4 * i} ${hub.y}" />`
+      )}
+    </svg>`;
   }
 
   private _tip(key: EntityKey, icon: string, titleKey: string, value: string, cls = ""): Template {
@@ -317,10 +346,19 @@ export class BambuA1Card extends LitElement {
     `;
   }
 
+  /** "auto_cali_for_user_param.gcode" -> "Calibração automática", "Benchy_v2.gcode.3mf" -> "Benchy v2". */
+  private _prettyTask(raw: string | null | undefined): string | null {
+    if (!raw) return null;
+    const base = raw.replace(/\.(gcode|3mf)$/i, "").replace(/\.(gcode|3mf)$/i, "");
+    if (/^auto_cali/i.test(base)) return this._t("job.calibration");
+    const text = base.replace(/[_]+/g, " ").replace(/\s+/g, " ").trim();
+    return text ? text.charAt(0).toUpperCase() + text.slice(1) : null;
+  }
+
   private _renderJob(st: PrinterState): Template {
     if (!JOB_STATES.has(st) || this._config.compact_view) return nothing;
     const progress = st === "finished" ? 100 : Math.min(100, Math.max(0, this._num("progress") ?? 0));
-    const task = this._text("task")?.replace(/\.(gcode|3mf)$/i, "").replace(/\.gcode$/i, "");
+    const task = this._prettyTask(this._text("task"));
     const layer = this._num("layer");
     const total = this._num("total_layers");
     const remaining = toMinutes(this._state("remaining"));

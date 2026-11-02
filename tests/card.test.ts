@@ -140,6 +140,8 @@ describe("rendering", () => {
     expect($(el, ".pill.nozzle")!.textContent).toContain("220°");
     expect($(el, ".status")!.textContent).toContain("Imprimindo");
     expect($(el, ".job-name")!.textContent).toBe("Benchy");
+    expect($$(el, ".spool-tint").length).toBe(4);
+    expect($(el, ".tubes path")).not.toBeNull();
     expect($(el, ".job-meta")!.textContent).toContain("Camada 12/240");
     expect($(el, ".job-meta")!.textContent).toContain("faltam 1 h 15 min");
     const chips = $$(el, ".slot-chip").map((c) => c.textContent!.replace(/\s+/g, " ").trim());

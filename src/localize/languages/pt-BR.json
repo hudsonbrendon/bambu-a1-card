@@ -19,7 +19,8 @@
   "job": {
     "layer": "Camada {layer}/{total}",
     "left": "faltam {time}",
-    "eta": "termina {time}"
+    "eta": "termina {time}",
+    "calibration": "Calibração automática"
   },
   "stat": {
     "nozzle": "Bico",

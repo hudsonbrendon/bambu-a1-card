@@ -19,7 +19,8 @@
   "job": {
     "layer": "Layer {layer}/{total}",
     "left": "{time} left",
-    "eta": "ends {time}"
+    "eta": "ends {time}",
+    "calibration": "Automatic calibration"
   },
   "stat": {
     "nozzle": "Nozzle",

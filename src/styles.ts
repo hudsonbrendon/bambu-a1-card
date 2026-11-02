@@ -100,6 +100,7 @@ export const cardStyles = css`
 
   /* ── product photos ─────────────────────────────────────────────────── */
   .hero {
+    position: relative;
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -115,6 +116,48 @@ export const cardStyles = css`
     position: relative;
     flex: 0 1 auto;
     line-height: 0;
+    isolation: isolate;
+  }
+  .spool-tint {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+  .spool-tint.empty {
+    mix-blend-mode: normal;
+    background: var(--bac-background, var(--card-background-color, #fff));
+    opacity: 0.72;
+  }
+  .tubes {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 1;
+  }
+  .tubes path {
+    fill: none;
+    stroke: rgba(205, 208, 212, 0.95);
+    stroke-width: 2.6px;
+    stroke-linecap: round;
+    vector-effect: non-scaling-stroke;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.25));
+  }
+  :host([dark-mode]) .tubes path {
+    stroke: rgba(150, 155, 160, 0.95);
+  }
+  .photo.printer {
+    z-index: 2;
+  }
+  .photo.spools {
+    z-index: 0;
   }
   .photo.printer {
     width: 58%;
