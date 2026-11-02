@@ -1,6 +1,6 @@
 import { LitElement, html, nothing, svg, type PropertyValues, type TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { A1_IMAGE, AMS_LITE_IMAGE, SPOOL_MASKS } from "./assets/images";
+import { A1_IMAGE, AMS_LITE_IMAGE, AMS_LITE_TINT_BASE, SPOOL_MASKS } from "./assets/images";
 import { BUSY_STATES, CARD_NAME, CARD_VERSION, JOB_STATES, PLATFORMS, TRAY_KEYS, type EntityKey, type PrinterState } from "./const";
 import { computeState, parseTray, resolveEntities, toMinutes } from "./helpers/resolve";
 import { localize, resolveLanguage } from "./localize";
@@ -56,6 +56,7 @@ export class BambuA1Card extends LitElement {
             { name: "show_name", selector: { boolean: {} } },
             { name: "show_status", selector: { boolean: {} } },
             { name: "show_ams", selector: { boolean: {} } },
+            { name: "tint_spools", selector: { boolean: {} } },
             { name: "show_toolbar", selector: { boolean: {} } },
             { name: "compact_view", selector: { boolean: {} } },
             { name: "temperature_step", selector: { number: { min: 1, max: 20, mode: "box" } } },
@@ -264,8 +265,8 @@ export class BambuA1Card extends LitElement {
       ${showAms ? this._renderTubes() : nothing}
       ${showAms
         ? html`<div class="photo spools">
-            <img src=${AMS_LITE_IMAGE} alt="AMS lite" />
-            ${trays.slice(0, 4).map((tray, i) => this._renderSpoolTint(tray, i))}
+            <img src=${this._config.tint_spools ? AMS_LITE_TINT_BASE : AMS_LITE_IMAGE} alt="AMS lite" />
+            ${this._config.tint_spools ? trays.slice(0, 4).map((tray, i) => this._renderSpoolTint(tray, i)) : nothing}
             ${active
               ? html`<span class="pill active-slot" title=${active.name ?? ""}>
                   <span class="dot" style="background:${active.color ?? "#999"}"></span>${active.type ?? active.name ?? ""}

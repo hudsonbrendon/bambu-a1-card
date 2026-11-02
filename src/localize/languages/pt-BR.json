@@ -69,7 +69,8 @@
     "show_toolbar": "Mostrar barra de ações",
     "show_ams": "Mostrar AMS",
     "compact_view": "Modo compacto",
-    "temperature_step": "Passo de temperatura (°C)"
+    "temperature_step": "Passo de temperatura (°C)",
+    "tint_spools": "Pintar os carretéis com os filamentos carregados"
   },
   "stage": {
     "printing": "Imprimindo",

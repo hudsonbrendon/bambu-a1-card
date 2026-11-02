@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.3
+
+- Back to the untouched AMS lite product photo. Spool tinting is now opt-in (`tint_spools: true`).
+
 ## 0.3.2
 
 - Spool masks rebuilt (holes filled, edges smoothed, softer tint through the translucent disc): no more speckled spools.

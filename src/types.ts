@@ -58,6 +58,8 @@ export interface BambuCardConfig {
   show_status?: boolean;
   show_toolbar?: boolean;
   show_ams?: boolean;
+  /** Paint the spools of the photo with the loaded filament colours (off by default). */
+  tint_spools?: boolean;
   compact_view?: boolean;
   /** Temperature step of the −/+ buttons, °C. */
   temperature_step?: number;

@@ -69,7 +69,8 @@
     "show_toolbar": "Show toolbar",
     "show_ams": "Show AMS",
     "compact_view": "Compact view",
-    "temperature_step": "Temperature step (°C)"
+    "temperature_step": "Temperature step (°C)",
+    "tint_spools": "Tint the spools with the loaded filaments"
   },
   "stage": {
     "printing": "Printing",
