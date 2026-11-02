@@ -1,6 +1,6 @@
 import { LitElement, html, nothing, type PropertyValues, type TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { a1Svg } from "./assets/a1-svg";
+import { A1_IMAGE, AMS_LITE_IMAGE } from "./assets/images";
 import { BUSY_STATES, CARD_NAME, CARD_VERSION, JOB_STATES, PLATFORMS, TRAY_KEYS, type EntityKey, type PrinterState } from "./const";
 import { computeState, parseTray, resolveEntities, toMinutes } from "./helpers/resolve";
 import { localize, resolveLanguage } from "./localize";
@@ -20,7 +20,6 @@ type Template = TemplateResult | typeof nothing;
 const GONE = new Set(["unavailable", "unknown", ""]);
 /** Stages that say nothing more than the print status itself. */
 const PLAIN_STAGES = new Set(["printing", "idle", "none", "unknown", "unavailable", "auto_bed_leveling_complete", ""]);
-const DEFAULT_PART_COLOR = "#00ae42";
 
 function fireEvent(node: HTMLElement, type: string, detail?: unknown): void {
   node.dispatchEvent(new CustomEvent(type, { detail, bubbles: true, composed: true }));
@@ -237,22 +236,41 @@ export class BambuA1Card extends LitElement {
 
   private _renderHero(st: PrinterState, trays: Tray[]): Template {
     const showAms = Boolean(this._config.show_ams) && trays.length > 0;
-    const active = trays.find((t) => t.active && !t.empty && t.color);
     const on = st !== "offline" && st !== "unavailable";
-    const reduce = typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const art = a1Svg({
-      state: st,
-      trays,
-      progress: this._num("progress") ?? 0,
-      partColor: active?.color ?? trays.find((t) => !t.empty && t.color)?.color ?? DEFAULT_PART_COLOR,
-      light: on && this._text("light") === "on",
-      nozzleHot: on && (this._num("nozzle_temp") ?? 0) >= 50,
-      bedHot: on && (this._num("bed_temp") ?? 0) >= 40,
-      animate: !reduce,
-      showAms,
-    });
-    return html`<div class="hero ${showAms ? "" : "solo"}" @click=${() => this._moreInfo(this._entities.camera ? "camera" : "print_status")}>
-      ${art}
+    const nozzle = this._num("nozzle_temp");
+    const bed = this._num("bed_temp");
+    const light = on && this._text("light") === "on";
+    const active = trays.find((t) => t.active && !t.empty);
+    const temp = (value: number | null, hot: number, warm: number) =>
+      value === null ? "" : value >= hot ? "hot" : value >= warm ? "warm" : "";
+    return html`<div
+      class="hero ${showAms ? "" : "solo"} ${st}"
+      @click=${() => this._moreInfo(this._entities.camera ? "camera" : "print_status")}
+    >
+      <div class="photo printer">
+        <img src=${A1_IMAGE} alt="Bambu Lab A1" />
+        ${on && nozzle !== null
+          ? html`<span class="pill nozzle ${temp(nozzle, 150, 50)}" title=${this._t("stat.nozzle")}>
+              <ha-icon icon="mdi:printer-3d-nozzle-heat"></ha-icon>${Math.round(nozzle)}°
+            </span>`
+          : nothing}
+        ${on && bed !== null
+          ? html`<span class="pill bed ${temp(bed, 60, 35)}" title=${this._t("stat.bed")}>
+              <ha-icon icon="mdi:radiator"></ha-icon>${Math.round(bed)}°
+            </span>`
+          : nothing}
+        ${light ? html`<span class="pill light" title=${this._t("action.light")}><ha-icon icon="mdi:lightbulb-on"></ha-icon></span>` : nothing}
+      </div>
+      ${showAms
+        ? html`<div class="photo spools">
+            <img src=${AMS_LITE_IMAGE} alt="AMS lite" />
+            ${active
+              ? html`<span class="pill active-slot" title=${active.name ?? ""}>
+                  <span class="dot" style="background:${active.color ?? "#999"}"></span>${active.type ?? active.name ?? ""}
+                </span>`
+              : nothing}
+          </div>`
+        : nothing}
     </div>`;
   }
 

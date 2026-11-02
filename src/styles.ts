@@ -98,283 +98,108 @@ export const cardStyles = css`
     margin: 2px;
   }
 
-  /* ── illustration ───────────────────────────────────────────────────── */
+  /* ── product photos ─────────────────────────────────────────────────── */
   .hero {
-    display: block;
-    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 12px;
+    margin: 6px auto 0;
+    width: min(96%, 460px);
     cursor: pointer;
-    width: min(94%, 420px);
   }
   .hero.solo {
     width: min(64%, 260px);
   }
-  .a1 {
+  .photo {
+    position: relative;
+    flex: 0 1 auto;
+    line-height: 0;
+  }
+  .photo.printer {
+    width: 58%;
+  }
+  .hero.solo .photo.printer {
+    width: 100%;
+  }
+  .photo.spools {
+    width: 42%;
+  }
+  .photo img {
     width: 100%;
     height: auto;
-    overflow: visible;
+    filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.16));
+    transition: filter 0.4s ease, opacity 0.4s ease;
   }
-  .a1 .shadow {
-    fill: rgba(0, 0, 0, 0.12);
-  }
-  .a1 .metal {
-    stroke: var(--bac-outline);
-    stroke-width: 0.8;
-  }
-  .a1 .cap {
-    fill: var(--bac-cap);
-  }
-  .a1 .base {
-    stroke: var(--bac-outline);
-    stroke-width: 1.2;
-  }
-  .a1 .base-line {
-    stroke: var(--bac-metal);
-    stroke-width: 1;
-  }
-  .a1 .slot,
-  .a1 .rivet {
-    fill: var(--bac-outline);
-  }
-  .a1 .carriage {
-    fill: var(--bac-cap);
-  }
-  .a1 .plate {
-    fill: var(--bac-plate);
-    stroke: var(--bac-panel);
-    stroke-width: 0.8;
-  }
-  .a1 .plate-sheen {
-    stroke: rgba(255, 255, 255, 0.18);
-    stroke-width: 1;
-  }
-  .a1 .plate-edge {
-    fill: var(--bac-metal-2);
-  }
-  .a1 .part {
-    stroke: rgba(0, 0, 0, 0.25);
-    stroke-width: 0.6;
-  }
-  .a1 .window {
-    fill: rgba(0, 0, 0, 0.22);
-  }
-  .a1 .screen {
-    fill: var(--bac-panel);
-  }
-  .a1 .display {
-    fill: #3b4552;
-  }
-  .a1 .ui {
-    fill: rgba(255, 255, 255, 0.45);
-  }
-  .a1:not(.offline):not(.unavailable) .display {
-    fill: #1d3b52;
-  }
-  .a1 .block {
-    fill: var(--bac-body);
-    stroke: var(--bac-outline);
-    stroke-width: 0.8;
-  }
-  .a1 .badge {
-    font: 800 6px Arial, Helvetica, sans-serif;
-    fill: var(--bac-panel);
-    text-anchor: end;
-  }
-  .a1 .head {
-    fill: var(--bac-body);
-    stroke: var(--bac-outline);
-    stroke-width: 1;
-  }
-  .a1 .head-side {
-    fill: var(--bac-body-2);
-    stroke: var(--bac-outline);
-    stroke-width: 0.8;
-  }
-  .a1 .inlet {
-    fill: var(--bac-cap);
-  }
-  .a1 .knob {
-    fill: var(--bac-gold);
-    stroke: #9c7a22;
-    stroke-width: 0.6;
-  }
-  .a1 .knob-hole {
-    fill: var(--bac-panel);
-  }
-  .a1 .logo {
-    fill: var(--bac-outline);
-  }
-  .a1 .duct,
-  .a1 .heater {
-    fill: var(--bac-panel);
-  }
-  .a1 .nozzle {
-    fill: var(--bac-gold);
-  }
-  .a1 .nozzle-glow,
-  .a1 .cone,
-  .a1 .heat {
-    display: none;
-  }
-  .a1 .heat {
-    fill: none;
-    stroke: var(--bac-error);
-    stroke-width: 1.4;
-    stroke-linecap: round;
-    opacity: 0.55;
-  }
-  .a1 .tube {
-    fill: none;
-    stroke: var(--bac-metal);
-    stroke-width: 1.6;
-    stroke-linecap: round;
+  .hero.offline .photo img,
+  .hero.unavailable .photo img {
+    filter: grayscale(1);
     opacity: 0.45;
   }
-  .a1 .tube.active {
-    stroke-width: 2.2;
-    opacity: 1;
+  .hero.paused .photo.printer img {
+    filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.16)) saturate(0.6);
   }
-  .a1 .stand {
-    fill: var(--bac-cap);
+  .pill {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 2px 7px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--bac-primary-text-color);
+    background: var(--bac-background, var(--card-background-color));
+    border: 1px solid var(--bac-divider-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    white-space: nowrap;
   }
-  .a1 .hub {
-    fill: var(--bac-body);
-    stroke: var(--bac-outline);
-    stroke-width: 1;
+  .pill ha-icon {
+    --mdc-icon-size: 13px;
   }
-  .a1 .feeder {
-    fill: var(--bac-cap);
-    stroke: var(--bac-panel);
-    stroke-width: 0.6;
+  .pill.nozzle {
+    top: 41%;
+    left: 50%;
+    transform: translate(-50%, 0);
   }
-  .a1 .lever {
-    fill: #e8b923;
+  .pill.bed {
+    bottom: 11%;
+    left: 50%;
+    transform: translate(-50%, 0);
   }
-  .a1 .spool .flange {
-    fill: var(--bac-flange);
+  .pill.hot {
+    color: #fff;
+    background: var(--bac-error, #db4437);
+    border-color: transparent;
   }
-  .a1 .spool .filament {
-    stroke: rgba(0, 0, 0, 0.18);
-    stroke-width: 0.6;
+  .pill.warm {
+    color: #fff;
+    background: var(--bac-warning, #ffa600);
+    border-color: transparent;
   }
-  .a1 .spool .spoke {
-    stroke: var(--bac-outline);
-    stroke-width: 1.4;
-    stroke-linecap: round;
+  .pill.light {
+    top: 6%;
+    right: 8%;
+    color: #fff;
+    background: var(--bac-warning, #ffa600);
+    border-color: transparent;
+    padding: 3px;
   }
-  .a1 .spool .rim {
-    fill: none;
-    stroke: var(--bac-outline);
-    stroke-width: 1.2;
+  .pill.active-slot {
+    bottom: 6%;
+    left: 50%;
+    transform: translate(-50%, 0);
   }
-  .a1 .spool .core {
-    fill: var(--bac-body);
-    stroke: var(--bac-outline);
-    stroke-width: 0.8;
+  .pill .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
   }
-  .a1 .spool .axle {
-    fill: var(--bac-cap);
-  }
-  .a1 .spool.empty .rim {
-    stroke-dasharray: 2 2;
-  }
-  .a1 .spool.active .rim {
-    stroke: var(--bac-accent);
-    stroke-width: 2;
-  }
-  .a1 .badge-warn,
-  .a1 .badge-pause,
-  .a1 .badge-done {
-    display: none;
-  }
-
-  /* hot nozzle / bed */
-  .a1.nozzle-hot .nozzle-glow {
-    display: inline;
-    fill: #ff7a1a;
-    opacity: 0.55;
+  .hero.running .pill.nozzle.hot {
     animation: breathe 1.6s ease-in-out infinite;
-  }
-  .a1.nozzle-hot .nozzle {
-    fill: #ff9a3c;
-  }
-  .a1.bed-hot .heat {
-    display: inline;
-    animation: rise 2.4s ease-in-out infinite;
-  }
-  .a1.bed-hot .plate-edge {
-    fill: #e0703a;
-  }
-  /* toolhead LED */
-  .a1.light-on .cone {
-    display: inline;
-  }
-  /* printing: the bed slings on Y, the active spool turns */
-  .a1.printing .bed {
-    animation: sling 1.5s ease-in-out infinite;
-  }
-  .a1 .reel.spinning {
-    animation: spin 5s linear infinite;
-  }
-  .a1.preparing .lever.on,
-  .a1.printing .lever.on {
-    fill: var(--bac-accent);
-  }
-  .a1.paused .badge-pause {
-    display: inline;
-  }
-  .a1.error .badge-warn,
-  .a1.failed .badge-warn {
-    display: inline;
-    animation: breathe 1.2s ease-in-out infinite;
-  }
-  .a1.finished .badge-done {
-    display: inline;
-  }
-  .a1.offline,
-  .a1.unavailable {
-    opacity: 0.6;
-  }
-
-  @keyframes sling {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(1.6px);
-    }
-  }
-  @keyframes spin {
-    to {
-      transform: rotate(-360deg);
-    }
-  }
-  @keyframes rise {
-    0% {
-      transform: translateY(3px);
-      opacity: 0;
-    }
-    40% {
-      opacity: 0.6;
-    }
-    100% {
-      transform: translateY(-5px);
-      opacity: 0;
-    }
-  }
-  @keyframes breathe {
-    0%,
-    100% {
-      opacity: 0.35;
-    }
-    50% {
-      opacity: 1;
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .a1 * {
-      animation: none !important;
-    }
   }
 
   /* ── metadata ───────────────────────────────────────────────────────── */

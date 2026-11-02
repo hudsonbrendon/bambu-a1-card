@@ -134,7 +134,10 @@ describe("resolution and state", () => {
 describe("rendering", () => {
   it("shows the job, the AMS slots and the temperatures", async () => {
     const el = await mount();
-    expect($(el, "svg.a1")!.classList.contains("printing")).toBe(true);
+    expect($(el, ".hero")!.classList.contains("printing")).toBe(true);
+    expect($(el, ".photo.printer img")).not.toBeNull();
+    expect($(el, ".photo.spools img")).not.toBeNull();
+    expect($(el, ".pill.nozzle")!.textContent).toContain("220°");
     expect($(el, ".status")!.textContent).toContain("Imprimindo");
     expect($(el, ".job-name")!.textContent).toBe("Benchy");
     expect($(el, ".job-meta")!.textContent).toContain("Camada 12/240");

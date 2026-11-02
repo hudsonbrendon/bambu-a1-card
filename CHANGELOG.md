@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0
+
+- The illustration is gone: the card now shows the official Bambu Lab product
+  renders of the A1 and the AMS lite (store.bambulab.com, background removed,
+  embedded as WebP). Live nozzle / bed temperature pills sit on the printer,
+  the chamber-light pill lights up when the LED is on and the active spool is
+  tagged on the AMS. No more printed-part or status badge drawings.
+
 ## 0.1.1
 
 - Hide the job thumbnail when the cover image fails to load.
