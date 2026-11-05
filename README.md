@@ -78,6 +78,18 @@ through the device registry (same config entry or `via_device`).
 | `shortcuts` | `[]` | Extra idle buttons `{ name, icon, service, service_data, target }`. |
 | `language` | HA language | Force `en` or `pt-BR`. |
 
+Spools without RFID always report 100 %. To show your own estimate, point
+`remain_entities` at four entities with the remaining % of slots 1 to 4
+(tapping a slot opens the entity, so you can correct it):
+
+```yaml
+remain_entities:
+  - input_number.ams_lite_bandeja_1_restante
+  - input_number.ams_lite_bandeja_2_restante
+  - input_number.ams_lite_bandeja_3_restante
+  - input_number.ams_lite_bandeja_4_restante
+```
+
 Card keys: `online`, `print_status`, `stage`, `progress`, `remaining`,
 `end_time`, `layer`, `total_layers`, `nozzle_temp`, `nozzle_target`,
 `bed_temp`, `bed_target`, `part_fan`, `speed`, `speed_profile`, `light`,

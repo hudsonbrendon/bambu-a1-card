@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import "../src/bambu-a1-card";
 import { CARD_NAME } from "../src/const";
-import { computeState, parseTray, resolveEntities } from "../src/bambu-a1-card";
+import { computeState, parseTray, resolveEntities, withRemain } from "../src/bambu-a1-card";
 import type { BambuCardConfig, HassObject, HassState } from "../src/types";
 
 const DEV = "dev-a1";
@@ -128,6 +128,16 @@ describe("resolution and state", () => {
     expect(parseTray({ entity_id: "e", state: "Empty", attributes: { color: "#00000000", type: "Empty", empty: true, remain: -1 } }).empty).toBe(true);
     expect(parseTray({ entity_id: "e", state: "empty", attributes: { color: null, remain: null } })).toMatchObject({ empty: true, remain: null });
     expect(parseTray({ entity_id: "e", state: "PETG", attributes: { color: "000000FF", type: "PETG", remain: 0 } }).remain).toBe(0);
+  });
+});
+
+describe("remain override", () => {
+  it("uses the estimate only when it is a number", () => {
+    const tray = parseTray({ entity_id: "e", state: "PLA", attributes: { type: "PLA", remain: 100 } });
+    expect(withRemain(tray, { entity_id: "n", state: "83.299", attributes: {} })).toMatchObject({ remain: 83, remain_entity_id: "n" });
+    expect(withRemain(tray, { entity_id: "n", state: "unavailable", attributes: {} }).remain).toBe(100);
+    expect(withRemain(tray).remain).toBe(100);
+    expect(withRemain(tray, { entity_id: "n", state: "150", attributes: {} }).remain).toBe(100);
   });
 });
 

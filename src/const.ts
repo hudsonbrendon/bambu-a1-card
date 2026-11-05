@@ -1,5 +1,5 @@
 export const CARD_NAME = "bambu-a1-card";
-export const CARD_VERSION = "0.3.3";
+export const CARD_VERSION = "0.3.4";
 
 /** Integrations whose entities the card understands (first wins in the stub config). */
 export const PLATFORMS = ["bambulab_local", "bambu_lab"];

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.4
+
+- New `remain_entities` option: show an estimated remaining % for spools without RFID (the printer always reports 100). The slot chip opens that entity so it can be corrected.
+
 ## 0.3.3
 
 - Back to the untouched AMS lite product photo. Spool tinting is now opt-in (`tint_spools: true`).

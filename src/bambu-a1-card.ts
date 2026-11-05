@@ -2,12 +2,12 @@ import { LitElement, html, nothing, svg, type PropertyValues, type TemplateResul
 import { customElement, property, state } from "lit/decorators.js";
 import { A1_IMAGE, AMS_LITE_IMAGE, AMS_LITE_TINT_BASE, SPOOL_MASKS } from "./assets/images";
 import { BUSY_STATES, CARD_NAME, CARD_VERSION, JOB_STATES, PLATFORMS, TRAY_KEYS, type EntityKey, type PrinterState } from "./const";
-import { computeState, parseTray, resolveEntities, toMinutes } from "./helpers/resolve";
+import { computeState, parseTray, resolveEntities, toMinutes, withRemain } from "./helpers/resolve";
 import { localize, resolveLanguage } from "./localize";
 import { cardStyles } from "./styles";
 import type { BambuCardConfig, HassObject, HassState, ResolvedEntities, ShortcutConfig, Tray } from "./types";
 
-export { computeState, parseTray, resolveEntities } from "./helpers/resolve";
+export { computeState, parseTray, resolveEntities, withRemain } from "./helpers/resolve";
 
 console.info(
   `%c BAMBU-A1-CARD %c v${CARD_VERSION} `,
@@ -107,7 +107,8 @@ export class BambuA1Card extends LitElement {
     if (changed.has("_config")) return true;
     const before = changed.get("hass") as HassObject | undefined;
     if (!before || !this.hass) return true;
-    return Object.values(this._entities).some((id) => id && before.states[id] !== this.hass!.states[id]);
+    const ids = [...Object.values(this._entities), ...(this._config.remain_entities ?? [])];
+    return ids.some((id) => id && before.states[id] !== this.hass!.states[id]);
   }
 
   // ── helpers ──────────────────────────────────────────────────────────────
@@ -162,7 +163,11 @@ export class BambuA1Card extends LitElement {
   }
 
   private _trays(): Tray[] {
-    return TRAY_KEYS.filter((k) => this._entities[k]).map((k) => parseTray(this._state(k)));
+    return TRAY_KEYS.flatMap((k, i) => {
+      if (!this._entities[k]) return [];
+      const override = this._config.remain_entities?.[i];
+      return [withRemain(parseTray(this._state(k)), override ? this.hass?.states[override] : undefined)];
+    });
   }
 
   private _moreInfo(key: EntityKey = "print_status"): void {
@@ -412,7 +417,7 @@ export class BambuA1Card extends LitElement {
           <div
             class="slot-chip ${tray.empty ? "empty" : ""} ${tray.active ? "active" : ""}"
             title=${tray.empty ? slot : `${slot} · ${tray.name ?? ""}`}
-            @click=${() => this._moreInfoId(tray.entity_id)}
+            @click=${() => this._moreInfoId(tray.remain_entity_id ?? tray.entity_id)}
           >
             <span class="swatch" style="background:${tray.color ?? "var(--bac-filament-unknown)"}"></span>
             <span class="slot-text">

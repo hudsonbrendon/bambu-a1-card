@@ -80,6 +80,13 @@ export function parseTray(stateObj?: HassState): Tray {
   return { entity_id: stateObj?.entity_id, empty, color, type, name, remain, active: a.active === true };
 }
 
+/** Use an external estimate of the remaining % (spools without RFID always report 100). */
+export function withRemain(tray: Tray, source?: HassState): Tray {
+  const value = source ? Number(source.state) : NaN;
+  if (!source || source.state === "" || !Number.isFinite(value)) return tray;
+  return { ...tray, remain: Math.max(0, Math.min(100, Math.round(value))), remain_entity_id: source.entity_id };
+}
+
 /** Minutes from a duration sensor in h / min / s. */
 export function toMinutes(stateObj?: HassState): number | null {
   const value = Number(stateObj?.state);

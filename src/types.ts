@@ -60,6 +60,8 @@ export interface BambuCardConfig {
   show_ams?: boolean;
   /** Paint the spools of the photo with the loaded filament colours (off by default). */
   tint_spools?: boolean;
+  /** Entities with the estimated remaining % of slots 1..4, for spools without RFID. */
+  remain_entities?: string[];
   compact_view?: boolean;
   /** Temperature step of the −/+ buttons, °C. */
   temperature_step?: number;
@@ -78,5 +80,7 @@ export interface Tray {
   name?: string;
   /** Remaining filament %, null when the spool doesn't report it. */
   remain: number | null;
+  /** Entity the estimate came from; the slot chip opens it so it can be corrected. */
+  remain_entity_id?: string;
   active: boolean;
 }
