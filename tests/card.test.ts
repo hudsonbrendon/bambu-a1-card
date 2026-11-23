@@ -9,7 +9,7 @@ const AMS = "dev-ams";
 
 type Opts = Record<string, string | undefined>;
 
-/** Entities as the bambulab_local integration registers them (pt-BR entity ids). */
+/** Entities as the bambulab integration (ex bambulab_local) registers them (pt-BR entity ids). */
 function mockHass(o: Opts = {}): HassObject & { calls: unknown[] } {
   const tray = (slot: number, color: string | null, type: string | null, remain: number | null, active = false) => ({
     tray_id: slot - 1,
@@ -52,7 +52,7 @@ function mockHass(o: Opts = {}): HassObject & { calls: unknown[] } {
   const entities: NonNullable<HassObject["entities"]> = {};
   for (const [id, device, tk, state, attributes = {}] of defs) {
     states[id] = { entity_id: id, state, attributes };
-    entities[id] = { entity_id: id, platform: "bambulab_local", translation_key: tk, device_id: device };
+    entities[id] = { entity_id: id, platform: "bambulab", translation_key: tk, device_id: device };
   }
   const calls: unknown[] = [];
   return {

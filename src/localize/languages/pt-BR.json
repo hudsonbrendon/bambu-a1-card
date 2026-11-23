@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "Card da Bambu Lab A1",
-    "description": "Card animado da Bambu Lab A1 e do AMS lite (integração bambulab_local ou bambu_lab).",
+    "description": "Card animado da Bambu Lab A1 e do AMS lite (integração bambulab, bambulab_local ou bambu_lab).",
     "invalid_config": "Configuração inválida",
     "more_info": "Mais informações"
   },

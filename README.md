@@ -5,7 +5,7 @@
 [![Lint and Test](https://github.com/hudsonbrendon/bambu-a1-card/actions/workflows/lint.yml/badge.svg)](https://github.com/hudsonbrendon/bambu-a1-card/actions/workflows/lint.yml)
 
 Animated Lovelace card for the **Bambu Lab A1** and its **AMS lite**, through
-the [`bambulab_local`](https://github.com/hudsonbrendon/ha-bambulab-local) or
+the `bambulab` integration (formerly `bambulab_local`) or
 the [`bambu_lab`](https://github.com/greghesp/ha-bambulab) integration. Same
 layout and minimal grey/white drawing as the vacuum, HP printer and MiSTer
 cards.
@@ -69,7 +69,7 @@ through the device registry (same config entry or `via_device`).
 
 | Option | Default | Description |
 | --- | --- | --- |
-| `device` | — | Printer device id (`bambulab_local` or `bambu_lab`). |
+| `device` | — | Printer device id (`bambulab`, the older `bambulab_local`, or `bambu_lab`). |
 | `entities` | — | Overrides per card key (handy to mix both integrations). |
 | `name` | device name | Title under the illustration. |
 | `show_name` / `show_status` / `show_ams` / `show_toolbar` | `true` | Toggle sections. |
